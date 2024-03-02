@@ -31,7 +31,7 @@ huggingface_model = HuggingFaceModel(
 predictor = huggingface_model.deploy(
 	initial_instance_count=1,
 	instance_type="ml.g5.2xlarge",
-	container_startup_health_check_timeout=300,
+	container_startup_health_check_timeout=3600,
   )
   
 # send request

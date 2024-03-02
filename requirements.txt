@@ -1,4 +1,0 @@
-sagemaker
-boto3
-jsonschema==4.17.3
-numpy

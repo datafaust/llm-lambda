@@ -2,8 +2,12 @@ import os
 import json
 import sagemaker
 import boto3
+import datetime
 from dotenv import load_dotenv
 from sagemaker.huggingface import HuggingFaceModel, get_huggingface_llm_image_uri
+
+# record start time
+start_time = datetime.datetime.now()
 
 load_dotenv()
 
@@ -39,3 +43,12 @@ predictor = huggingface_model.deploy(
 predictor.predict({
 	"inputs": "My name is Julien and I like to",
 })
+
+# Record the end time
+end_time = datetime.datetime.now()
+
+# Calculate the difference in minutes
+time_diff = (end_time - start_time).total_seconds() / 60
+
+print(f"Script execution time: {time_diff:.2f} minutes")
+print(f'in service as of {datetime.datetime.now()}')

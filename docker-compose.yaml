@@ -19,7 +19,8 @@ services:
       - mongodb
       
   chatui:
-    build: ./
+    build: 
+      context: .
     container_name: chatui
     ports:
       - "3000:3000"

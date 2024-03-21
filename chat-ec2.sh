@@ -2,6 +2,8 @@
 # Update package index
 sudo apt-get update -y
 
+sudo usermod -a -G sudo ubuntu
+
 # Install Node.js and npm
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -39,6 +41,7 @@ sudo systemctl start docker
 
 # Enable Docker service to start on boot
 sudo systemctl enable docker
+sudo usermod -a -G docker $USER
 
 # clone llm lambda repo
 git clone https://github.com/datafaust/llm-lambda.git

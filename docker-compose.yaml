@@ -1,17 +1,6 @@
 version: '3.8'
 
 services:
-  chatui:
-    build: ./
-    container_name: chatui
-    ports:
-      - "3000:3000"
-    environment:
-      - API_HOST=host.docker.internal
-      - API_PORT=11434 # Update this with your actual API port
-    env_file:
-      - .env
-
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -28,3 +17,16 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongodb
     depends_on:
       - mongodb
+      
+  chatui:
+    build: ./
+    container_name: chatui
+    ports:
+      - "3000:3000"
+    environment:
+      - API_HOST=host.docker.internal
+      - API_PORT=11434 # Update this with your actual API port
+    env_file:
+      - .env
+
+

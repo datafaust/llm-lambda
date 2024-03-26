@@ -6,7 +6,7 @@ services:
     container_name: mongodb
     ports:
       - "27017:27017"
-
+    restart: always
 
   mongo-express:
     image: mongo-express
@@ -17,5 +17,4 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongodb
     depends_on:
       - mongodb
-
-
+    restart: always

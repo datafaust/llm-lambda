@@ -47,11 +47,11 @@ sudo usermod -a -G docker $USER
 git clone https://github.com/datafaust/llm-lambda.git
 
 # clone chat repo
-git clone https://github.com/huggingface/chat-ui.git
+git clone https://github.com/datafaust/chat-ui-forked.git
 
 # copy over docker compose file
-cp llm-lambda/docker-compose.yaml chat-ui/
-cd chat-ui
+cp llm-lambda/docker-compose.yaml chat-ui-forked/
+cd chat-ui-forked
 
 # remove existing env file
 rm -f ./.env

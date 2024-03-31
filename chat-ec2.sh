@@ -47,11 +47,9 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -a -G docker $USER
 
-# install aws
-sudo apt-get install python3 python3-pip -y
-sudo pip3 install awscli
-sudo pip3 install sagemaker boto3
-sudo pip3 install python-dotenv
+# install aws and python
+#sudo apt-get install python3 python3-pip -y
+#sudo pip3 install awscli
 
 # clone llm lambda repo
 git clone https://github.com/datafaust/llm-lambda.git
@@ -61,6 +59,7 @@ git clone https://github.com/huggingface/chat-ui.git
 
 # copy over docker compose file
 cp llm-lambda/docker-compose.yaml chat-ui/
+cp llm-lambda/set_env.py chat-ui/
 cd chat-ui
 
 # remove existing env file
@@ -79,35 +78,24 @@ sudo docker-compose up -d
 
 sudo npm run build
 sudo npm install -g pm2
+npm install pm2-runtime -g
+
 cd ../
-sudo pm2 start chat-ui/build/index.js -i $CPU_CORES --name "chat-ui"
-sudo pm2 save
-pm2 startup
+pm2 start chat-ui/build/index.js -i $CPU_CORES --name "chat-ui"
 pm2 save
-sudo pm2 logs chat-ui [--lines 1000]
+pm2 startup
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+pm2 save
+pm2 logs chat-ui [--lines 1000]
 
-
-
-
-
-
-
-
-
-# provide you user with docker access
-
+# prep server to be able to tackle sagemaker deployments
 # install aws cli
 sudo apt-get install python3 python3-pip -y
+sudo pip3 install sagemaker boto3
+sudo pip3 install python-dotenv
+
 sudo pip3 install awscli
 
-aws s3 cp s3://llm-event-logs/app_builds/build_release_1.0.zip ./
-
-aws s3 cp s3://llm-event-logs/app_builds/.env ./
-
-aws s3 cp s3://llm-event-logs/app_builds/package.json ./
 
 
-sudo apt install unzip
 
-
-pm2 start build/index.js -i $CPU_CORES --no-daemon

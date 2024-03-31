@@ -18,3 +18,9 @@ services:
     depends_on:
       - mongodb
     restart: always
+
+  chat-ui:
+    build: .
+    ports:
+      - "3000:3000"
+    restart: always

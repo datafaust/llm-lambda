@@ -62,9 +62,19 @@ git checkout b0e461b
 # copy over docker compose file
 cp ../llm-lambda/docker-compose.yaml ./
 cp ../llm-lambda/set_env.py ./
+python3 set_env.py
+
+npm install
+
+# need to set mongodburl
 
 docker-compose up -d
-npm install
+
+# good from here up
+
+
+apt  install awscli
+
 
 # replace mongodb url value
 sed -i 's/^MONGODB_URL=.*/MONGODB_URL=my_new_value/' .env

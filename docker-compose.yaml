@@ -21,6 +21,9 @@ services:
 
   chat-ui:
     build: .
+    container_name: chat-ui-server
     ports:
       - "3000:3000"
+    depends_on:
+      - mongodb
     restart: always
